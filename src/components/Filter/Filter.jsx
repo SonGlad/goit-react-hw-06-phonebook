@@ -1,9 +1,21 @@
-import PropTypes from 'prop-types';
 import { FilterStyle } from "./Filter.styled";
+import { useDispatch, useSelector } from 'react-redux';
+import { onFilterChange } from "redux/contactSlice";
 
 
 
-export const Filter = ({filter, onFilterChange}) => {
+export const Filter = () => {
+
+    const dispatch = useDispatch();
+    const filter = useSelector(state => state.filter);
+    
+  
+    const handleFilterChange = (event) => {
+      dispatch(onFilterChange(event.target.value));
+    };
+
+
+
     return(
         <FilterStyle>
             <label className='label' htmlFor="filter">
@@ -14,13 +26,16 @@ export const Filter = ({filter, onFilterChange}) => {
                     required
                     placeholder=''
                     value={filter}
-                    onChange={onFilterChange}></input>
+                    onChange={handleFilterChange}
+                    >
+                </input>
             </label>
         </FilterStyle>
-    )
+    );
 };
 
-Filter.propTypes = {
-    filter: PropTypes.string.isRequired,
-    onFilterChange: PropTypes.func.isRequired,
-};
+
+
+
+
+

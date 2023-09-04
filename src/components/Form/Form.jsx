@@ -1,44 +1,38 @@
 import { FormStyle } from "./Form.styled";
-import PropTypes from 'prop-types';
-import { useState } from "react";
+import { nanoid } from "nanoid";
+import { addContact } from "redux/contactSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
-export const Form = ({onChange}) => {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+export const Form = () => {
 
 
-    const handleChange = event => {
-        switch(event.target.name){
-            case "name":
-                setName(event.target.value);
-                break;
-            case "number":
-                setNumber(event.target.value);
-                break;
-            default:
-                return;
-        }
-    };
+    const dispatch = useDispatch();
+    const contacts = useSelector(state => state.contacts);
 
 
-    const handleSubmit = event => {
+    const onFormSubmit = (event) => {
         event.preventDefault();
-        formReset();
-        onChange({ name, number })
-    };
-        
+        const name = event.target.name.value;
+        const number = event.target.number.value;
 
-    const formReset = () => {
-        setName('');
-        setNumber('');
-    };
+        if (contacts.some(
+            contact => 
+            contact.number === number || 
+            contact.name.toLowerCase() === name.toLowerCase())){
+              alert(`${name} or entered ${number} number is already in contacts.`);
+              return;
+            }
+
+        event.target.reset();
+        dispatch(addContact({id: nanoid(), name, number}))
+    }; 
 
 
 
     return (
-        <FormStyle onSubmit={handleSubmit}>
+        <FormStyle onSubmit={onFormSubmit}>
             <label className='label' htmlFor='name'>
                 <span className="input-title">Name</span>
                 <input className="input"
@@ -47,8 +41,8 @@ export const Form = ({onChange}) => {
                 title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                 required
                 placeholder='Rosie Simpson'
-                value={name}
-                onChange={handleChange}
+                id='name'
+
                 // pattern="^[a-zA-Zа-яА-Я]+([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*$"
                 />
             </label>
@@ -60,23 +54,16 @@ export const Form = ({onChange}) => {
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
                     placeholder='459-12-56'
-                    value={number}
-                    onChange={handleChange}
+                    id='number'
                     // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     />
             </label>
             <button 
                 className="btn btn-primary btn-block btn-large" 
                 type='submit'
-                disabled={name === '' && number === ''}
+                disabled={contacts.name === '' && contacts.number === ''}
                 >Add Contact
             </button>
         </FormStyle>
     );
-};
-
-
-
-Form.propTypes = {
-    onChange: PropTypes.func.isRequired,
 };

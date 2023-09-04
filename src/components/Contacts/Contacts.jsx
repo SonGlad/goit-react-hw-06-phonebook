@@ -1,32 +1,44 @@
-import PropTypes from 'prop-types';
-import { ContactsStyle } from "./Contacts.styled";
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from "redux/contactSlice";
+import { ContactsList } from 'components/ContactsList/ContactsList';
+import { Notification } from "components/Notification/Notification";
+import { NotificationFilter } from "components/NotificationFilter/NotificationFilter";
 
 
-export const Contacts = ({contacts, deleteContact}) => {
+
+export const Contacts = () => {
+
+    const contacts = useSelector(state => state.contacts);
+    const dispatch = useDispatch();
+    const filter = useSelector(state => state.filter);
+
+
+    const filteredContacts = contacts.filter(contact => {
     return (
-        <ContactsStyle>
-            {contacts.map(({id, name, number}) => (
-                <li className="list" key={id}>
-                    <h3 className="list-name">{name}:</h3>
-                    <p className="list-number">{number}</p>
-                    <button className="btn btn-primary btn-block btn-large" 
-                    type="button"
-                    onClick={() => deleteContact(id)}>Delete</button>
-                </li>
-            ))}
-        </ContactsStyle>
+        contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+        contact.number.includes(filter)
+    );
+    });
+  
+
+    const onDeleteContact = contactId  => {
+        dispatch(deleteContact(contactId));
+    };
+
+    
+
+    return (
+        <>
+            {contacts.length === 0 ? (
+            <Notification message="There are no contacts in your list, sorry" />
+            ) : filteredContacts.length > 0 ? (
+            <ContactsList
+                filteredContacts={filteredContacts}
+                onDeleteContact={onDeleteContact}
+            />
+            ) : (
+            <NotificationFilter notification="No contacts found that match the filter" />
+            )}
+        </>
     )
-};
-
-
-
-Contacts.propTypes ={
-    contatcs: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,
-            number: PropTypes.string.isRequired,
-        })
-    ),
-    deleteContact: PropTypes.func.isRequired,
 };
