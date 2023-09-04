@@ -1,10 +1,11 @@
 {
-  "name": "goit-react-hw-04-phonebook",
+  "name": "goit-react-hw-06-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://SonGlad.github.io/goit-react-hw-04-phonebook/",
+  "homepage": "https://SonGlad.github.io/goit-react-hw-06-phonebook/",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -12,7 +13,10 @@
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-redux": "^8.1.2",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
+    "redux-persist": "^6.0.0",
     "styled-components": "^6.0.7",
     "web-vitals": "^2.1.3"
   },
