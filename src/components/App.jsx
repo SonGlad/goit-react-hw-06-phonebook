@@ -9,15 +9,15 @@ import { Contacts } from './Contacts/Contacts';
 export const App = () => {
   return(
     <Section>
-        <Containers title={'Phonebook'}>
-          <Form />
-        </Containers>
-        <Containers title={'Filter'}>
-          <Filter/>
-        </Containers>
-        <Containers title={'Contacts'}>
-          <Contacts/>
-        </Containers>
-      </Section>
-  )
+      <Containers title={'Phonebook'}>
+        <Form />
+      </Containers>
+      <Containers title={'Filter'}>
+        <Filter/>
+      </Containers>
+      <Containers title={'Contacts'}>
+        <Contacts/>
+      </Containers>
+    </Section>
+  );
 }; 

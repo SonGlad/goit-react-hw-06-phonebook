@@ -9,7 +9,7 @@ export const Containers = ({title, children}) => {
             <h2 className='title'>{title}</h2>
             {children}
         </ContainersStyle>
-    )
+    );
 };
 
 
@@ -17,4 +17,4 @@ export const Containers = ({title, children}) => {
 Containers.propTypes = {
     title: PropTypes.string,
     children: PropTypes.node
-}
+};

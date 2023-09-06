@@ -7,7 +7,7 @@ export const Notification = ({message}) => {
         <TextStyle>
             <h3 className='text-style'>{message}</h3>
         </TextStyle>
-    )
+    );
 };
 
 Notification.protoTypes = {

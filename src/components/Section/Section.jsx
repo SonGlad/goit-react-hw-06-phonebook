@@ -6,5 +6,5 @@ export const Section = ({children}) => {
         <SectionStyle>
             {children}
         </SectionStyle>
-    )
+    );
 };

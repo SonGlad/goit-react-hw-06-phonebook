@@ -14,10 +14,10 @@ export const Contacts = () => {
 
 
     const filteredContacts = contacts.filter(contact => {
-    return (
-        contact.name.toLowerCase().includes(filter.toLowerCase()) ||
-        contact.number.includes(filter)
-    );
+        return (
+            contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+            contact.number.includes(filter)
+        );
     });
   
 
@@ -40,5 +40,5 @@ export const Contacts = () => {
             <NotificationFilter notification="No contacts found that match the filter" />
             )}
         </>
-    )
+    );
 };
